@@ -28,7 +28,7 @@ app.use('/article', ArticleRouter);
 connectToMongoDB();
 
 connectToRabbitMQ()
-  .then(() => console.log("Connected to RabbitMQ"))
+  .then((channel) => console.log("Connected to RabbitMQ"))
   .catch((err) => console.log(`Unable to connect to RabbitMQ \n${err}`));
 
 app.listen(PORT, (err) => {
