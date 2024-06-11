@@ -1,17 +1,19 @@
 import express from "express";
 import { configDotenv } from "dotenv";
+import transporter from "./config/mailerConfig";
 
 configDotenv();
 
 const PORT = process.env.PORT;
-const MAILING_QUEUE = process.env.MAILING_QUEUE;
 
 const app = express();
 
 app.use(express.json());
 
 connectRabbitMQ()
-  .then((channel) => console.log("Connected to RabbitMQ"))
+  .then((channel) => {
+    // To be implemented later
+  })
   .catch((err) => console.log(`Unable to connect to RabbitMQ \n${err}`));
 
 app.listen(PORT, (err) => {
