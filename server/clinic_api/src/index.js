@@ -1,35 +1,30 @@
 import express, { json } from "express";
 import cors from "cors";
 import { configDotenv } from "dotenv";
-import connectToMongoDB from "./config/databaseConfig";
-import { connectToRabbitMQ } from "./config/rabbitMqConfig";
-import PatientRouter from "./api/routes/patient";
-import DoctorRouter from "./api/routes/doctor";
-import MedicalRecordRouter from "./api/routes/medicalRecord";
-import MedicineRouter from "./api/routes/medicine";
-import AppointmentRouter from "./api/routes/appointment";
-import ArticleRouter from "./api/routes/article";
+import cookieParser from "cookie-parser";
+import AuthRouter from "./api/routes/auth.js";
+import DoctorRouter from "./api/routes/doctor.js";
+import UserRouter from "./api/routes/user.js";
+import ReviewRouter from "./api/routes/review.js";
+import BookingRouter from "./api/routes/booking.js";
+import connectToMongoDB from "./config/databaseConfig.js";
 
 configDotenv();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
 app.use(json());
 app.use(cors());
-app.use('/patient', PatientRouter);
-app.use('/doctor', DoctorRouter);
-app.use('/medical-record', MedicalRecordRouter);
-app.use('/medicine', MedicineRouter);
-app.use('/appointment', AppointmentRouter);
-app.use('/article', ArticleRouter);
+app.use(cookieParser());
+app.use("/auth", AuthRouter);
+app.use("/doctors", DoctorRouter);
+app.use("/users", UserRouter);
+app.use("/reviews", ReviewRouter);
+app.use("/bookings", BookingRouter);
 
 connectToMongoDB();
-
-connectToRabbitMQ()
-  .then((channel) => console.log("Connected to RabbitMQ"))
-  .catch((err) => console.log(`Unable to connect to RabbitMQ \n${err}`));
 
 app.listen(PORT, (err) => {
   if (!err) console.log(`Server running on port ${PORT}`);
