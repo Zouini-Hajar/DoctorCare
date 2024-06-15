@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { createReview, getAllReviews } from "../controllers/ReviewController";
-import { authenticate, restrict } from "../middlewares/verifyToken";
+import { createReview, getAllReviews } from "../controllers/ReviewController.js";
+import { authenticate, restrict } from "../middlewares/verifyToken.js";
 
 const routes = Router({ mergeParams: true });
 
