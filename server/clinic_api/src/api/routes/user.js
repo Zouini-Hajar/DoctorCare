@@ -1,17 +1,26 @@
-import { Router } from "express";
+import express from "express";
 import {
-  getAllUsers,
-  getUserById,
-  updateUserById,
-  deleteUserById,
-} from "../controllers/UserController.js";
-import { authenticate, restrict } from "../middlewares/verifyToken.js";
+  updateUser,
+  deleteUser,
+  getAllUser,
+  getSingleUser,
+  getUserProfile,
+  getMyAppointments,
+} from "../Controllers/UserController.js";
+import { authenticate, restrict } from "../auth/verifyToken.js";
 
-const routes = Router();
+const router = express.Router();
 
-routes.get("/", authenticate, restrict(["admin"]), getAllUsers);
-routes.get("/:id", authenticate, restrict(["patient"]), getUserById);
-routes.put("/:id", authenticate, restrict(["patient"]), updateUserById);
-routes.delete("/:id", authenticate, restrict(["patient"]), deleteUserById);
+router.get("/:id", authenticate, restrict(["patient"]), getSingleUser);
+router.get("/", authenticate, restrict(["admin"]), getAllUser);
+router.put("/:id", authenticate, restrict(["patient"]), updateUser);
+router.delete("/:id", authenticate, restrict(["patient"]), deleteUser);
+router.get("/profile/me", authenticate, restrict(["patient"]), getUserProfile);
+router.get(
+  "/appointments/my-appointments",
+  authenticate,
+  restrict(["patient"]),
+  getMyAppointments
+);
 
-export default routes;
+export default router;

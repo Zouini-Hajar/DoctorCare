@@ -69,14 +69,16 @@ const Header = () => {
                       ? "/doctors/profile/me"
                       : "/users/profile/me"
                   }`}
+                   className="flex items-center gap-4"
                 >
                   <figure className="w-[35px] h-[35px] rounded-full cursor-pointer">
                     <img
-                      src={user?._doc.photo}
+                      src={user?.photo}
                       className="w-full rounded-full"
                       alt=""
                     />
                   </figure>
+                  <h2>{user?.name}</h2>
                 </Link>
               </div>
             ) : (

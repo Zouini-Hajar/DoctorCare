@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../Config";
 import { toast } from "react-toastify";
 import { AuthContext } from "../context/AuthContext";
+import { HashLoader } from "react-spinners";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -25,7 +26,7 @@ const Login = () => {
         body: JSON.stringify(formData),
       });
 
-      const result = await res.json(); // Await the result
+      const result = await res.json(); 
 
       if (!res.ok) {
         throw new Error(result.message);
@@ -34,7 +35,7 @@ const Login = () => {
       dispatch({
         type: "LOGIN_SUCCESS",
         payload: {
-          user: result.data,
+          user: result.data._doc,
           token: result.token,
           role: result.role,
         },
@@ -83,7 +84,7 @@ const Login = () => {
               type="submit"
               className="w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3"
             >
-              Login
+               { loading ? <HashLoader size={35} color="#fffff"/> : 'login'}
             </button>
           </div>
           <p className="mt-5 text-textColor text-center">
