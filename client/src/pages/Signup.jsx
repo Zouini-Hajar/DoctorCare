@@ -48,7 +48,7 @@ const Signup = () => {
         body: JSON.stringify(formData),
       });
 
-      const { message } = res.json();
+      const { message } = await res.json();
 
       if (!res.ok) {
         throw new Error(message);
