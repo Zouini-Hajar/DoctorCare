@@ -49,7 +49,7 @@ function DoctorCard({ doctor }) {
             className="text-[14px] leading-6 font-[400]
               text-textColor"
           >
-            {experiences && "At " + experiences[0].hospital}
+            {experiences && "At " + experiences[0]?.hospital}
           </p>
         </div>
 
