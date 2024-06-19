@@ -21,9 +21,10 @@ export const getAllReviews = async (req, res) => {
 // Create new review
 export const createReview = async (req, res) => {
   if (!req.body.doctor) req.body.doctor = req.params.doctorId;
-  if (!req.body.user) req.body.user = req.params.userId;
+  if (!req.body.user) req.body.user = req.userId;
 
   try {
+    console.log(req.body)
     const review = await Review.create(req.body);
 
     await Doctor.findByIdAndUpdate(req.body.doctor, {

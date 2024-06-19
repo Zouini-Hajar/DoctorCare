@@ -8,10 +8,12 @@ const ReviewSchema = Schema(
     doctor: {
       type: mongoose.Types.ObjectId,
       ref: "Doctor",
+      required: true,
     },
     user: {
       type: mongoose.Types.ObjectId,
-      ref: "User",
+      ref: User,
+      required: true,
     },
     reviewText: {
       type: String,
@@ -28,7 +30,7 @@ const ReviewSchema = Schema(
   { timestamps: true }
 );
 
-ReviewSchema.pre(/^find/, (next) => {
+ReviewSchema.pre(/^find/, function (next) {
   this.populate({
     path: "user",
     select: "name photo",
@@ -37,7 +39,7 @@ ReviewSchema.pre(/^find/, (next) => {
   next();
 });
 
-ReviewSchema.statics.calcAverageRatings = async (doctorId) => {
+ReviewSchema.statics.calcAverageRatings = async function (doctorId) {
   const stats = await this.aggregate([
     {
       $match: { doctor: doctorId },
@@ -57,7 +59,7 @@ ReviewSchema.statics.calcAverageRatings = async (doctorId) => {
   });
 };
 
-ReviewSchema.post("save", () => {
+ReviewSchema.post("save", function () {
   this.constructor.calcAverageRatings(this.doctor);
 });
 
