@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { Schema, model } from "mongoose";
+import Review from "./Review.js";
 
 const DoctorSchema = Schema({
   email: { type: String, required: true, unique: true },
@@ -17,7 +18,7 @@ const DoctorSchema = Schema({
   bio: { type: String, maxLength: 50 },
   about: { type: String },
   timeSlots: { type: Array },
-  reviews: [{ type: mongoose.Types.ObjectId, ref: "Review" }],
+  reviews: [{ type: mongoose.Types.ObjectId, ref: Review }],
   averageRating: {
     type: Number,
     default: 0,

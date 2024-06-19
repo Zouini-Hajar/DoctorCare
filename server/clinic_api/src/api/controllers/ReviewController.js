@@ -13,7 +13,6 @@ export const getAllReviews = async (req, res) => {
         .status(200)
         .json({ success: true, message: "Reviews found", reviews });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ success: false, message: "Error fetching reviews" });
   }
 };
@@ -32,7 +31,7 @@ export const createReview = async (req, res) => {
     });
 
     res.status(200).json({ success: true, message: "Review submitted." });
-  } catch {
+  } catch(error) {
     console.log(error);
     res.status(500).json({ success: false, message: "Error creating review" });
   }
