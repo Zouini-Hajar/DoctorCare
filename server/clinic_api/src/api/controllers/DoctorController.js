@@ -1,4 +1,5 @@
 import Doctor from "../models/Doctor.js";
+import Booking from "../models/Booking.js";
 
 // Get all doctors
 export const getAllDoctors = async (req, res) => {
@@ -122,7 +123,7 @@ export const getDoctorProfile = async (req, res) => {
     const appointments = await Booking.find({ doctor: doctorId });
     res.status(200).json({
       success: true,
-      message: "Profile info is getting",
+      message: "Doctor profile info",
       data: { ...rest, appointments },
     });
   } catch (err) {

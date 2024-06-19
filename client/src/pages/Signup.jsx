@@ -4,8 +4,7 @@ import signupImg from "../assets/images/signup.gif";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../Config";
 import { toast } from "react-toastify";
-import { HashLoader } from 'react-spinners';
-
+import { HashLoader } from "react-spinners";
 
 const Signup = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -57,7 +56,6 @@ const Signup = () => {
       setLoading(false);
       toast.success(message);
       navigate("/login");
-
     } catch (error) {
       toast.error(error.message);
       setLoading(false);
@@ -171,11 +169,15 @@ const Signup = () => {
               </div>
               <div className="mt-7">
                 <button
-                disabled = {loading && true}
+                  disabled={loading && true}
                   type="submit"
                   className="w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3"
                 >
-                  { loading ? <HashLoader size={35} color="#fffff"/> : 'Sign Up'}
+                  {loading ? (
+                    <HashLoader size={35} color="#fffff" />
+                  ) : (
+                    "Sign Up"
+                  )}
                 </button>
               </div>
               <p className="mt-5 text-textColor text-center">
